@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Tilewa 🤍</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5eedf;
+    --parchment: #ede0c4;
+    --sepia-light: #c9a96e;
+    --sepia: #9c7a3c;
+    --sepia-dark: #5c4220;
+    --ink: #2e1f0e;
+    --faded: #8a7560;
+    --accent: #a0522d;
+    --photo-1: #c4b49a;
+    --photo-2: #b0a08a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(156,122,60,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(160,82,45,0.10) 0%, transparent 55%),
+      var(--cream);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+  }
+
+  .hero-ornament {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--sepia-light);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--sepia-dark);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--faded);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--sepia);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--sepia-light);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.8s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--sepia-light);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  .hero-audio-toggle {
+    align-self: flex-end;
+    margin-top: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  .audio-toggle {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--sepia);
+    color: var(--cream);
+    border: none;
+    border-radius: 999px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(92,66,32,0.12);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .audio-toggle:hover {
+    transform: translateY(-1px);
+  }
+
+  .audio-toggle--hidden {
+    display: none;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--sepia-light);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--sepia-dark);
+    margin-bottom: 3rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 4rem;
+    color: var(--sepia-light);
+    font-size: 1.2rem;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--sepia-light), transparent);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--sepia-light) 10%, var(--sepia-light) 90%, transparent);
+  }
+
+  .timeline-entry {
+    position: relative;
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .timeline-entry.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sepia);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--sepia);
+  }
+
+  .timeline-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1rem;
+    color: var(--sepia-light);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .timeline-memory {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--sepia-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-text {
+    font-size: 1rem;
+    color: var(--faded);
+    font-style: italic;
+    max-width: 500px;
+    line-height: 1.8;
+  }
+
+  /* ── POLAROID PHOTOS ── */
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .polaroid {
+    background: #fdf8f0;
+    padding: 14px 14px 48px;
+    box-shadow:
+      0 1px 3px rgba(92,66,32,0.12),
+      0 4px 12px rgba(92,66,32,0.08),
+      inset 0 0 0 0.5px rgba(156,122,60,0.2);
+    transform: rotate(var(--rot, -2deg));
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    opacity: 0;
+    transform: rotate(var(--rot, -2deg)) translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease;
+    cursor: default;
+  }
+
+  .polaroid.visible {
+    opacity: 1;
+    transform: rotate(var(--rot, -2deg)) translateY(0);
+  }
+
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-6px) scale(1.03) !important;
+    box-shadow:
+      0 8px 30px rgba(92,66,32,0.2),
+      0 2px 6px rgba(92,66,32,0.12),
+      inset 0 0 0 0.5px rgba(156,122,60,0.2);
+    z-index: 10;
+    position: relative;
+  }
+
+  .polaroid-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--photo-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: rgba(92,66,32,0.4);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .polaroid-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.05) 100%);
+  }
+
+  .polaroid-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(20%) contrast(0.95);
+  }
+
+  .polaroid-caption {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1rem;
+    color: var(--sepia-dark);
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.3;
+  }
+
+  /* ── LOVE LETTER SECTION ── */
+  .letter-wrapper {
+    background: #fdf8f0;
+    border: 1px solid rgba(156,122,60,0.25);
+    padding: 3.5rem;
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(92,66,32,0.08);
+  }
+
+  .letter-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 0.5px solid rgba(156,122,60,0.15);
+    pointer-events: none;
+  }
+
+  .letter-salutation {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--sepia-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .letter-body {
+    font-size: 1.05rem;
+    color: var(--sepia-dark);
+    line-height: 2;
+    white-space: pre-line;
+  }
+
+  .letter-sign {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-top: 2rem;
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--sepia-light);
+  }
+
+  .footer-hearts {
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+    margin-top: 1rem;
+    color: var(--sepia-light);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TAPE EFFECT ── */
+  .tape {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    background: rgba(200,180,140,0.45);
+    border: 0.5px solid rgba(156,122,60,0.2);
+  }
+
+  .tape-top {
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .letter-wrapper { padding: 2rem 1.5rem; }
+    .photos-grid { gap: 2rem 1.5rem; }
+    .timeline { padding-left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <audio id="background-music" src="music.mp3" preload="auto"></audio>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-ornament">✦ a little something for you ✦</p>
+  <h1 class="hero-title">Happy Birthday,<br><em>Tilewa</em></h1>
+  <p class="hero-subtitle">a scrapbook of us — of every moment that matters</p>
+  <p class="hero-date">Made with love, always</p>
+  <button id="music-toggle" class="audio-toggle hero-audio-toggle" type="button">Start music</button>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+
+<!-- TIMELINE -->
+<div class="section">
+  <span class="section-label">our story</span>
+  <h2 class="section-title">The Moments That Made Us</h2>
+
+  <div class="divider">✦</div>
+
+  <div class="timeline">
+
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <span class="timeline-date">The very beginning</span>
+      <h3 class="timeline-memory">The Day I Met You</h3>
+      <p class="timeline-text">
+         <em>In Alfa Belgore, after Youth Alive Service — when we had our first actual conversation.</em>
+      </p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <span class="timeline-date">A little while after</span>
+      <h3 class="timeline-memory">Our First Voice Note</h3>
+      <p class="timeline-text">
+         <em>The first — the very first —  and ever since then we kept sending each other voice notes about our day.</em>
+      </p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <span class="timeline-date">A favourite day</span>
+      <h3 class="timeline-memory">Our First Date</h3>
+      <p class="timeline-text">
+         <em>When we were home, and we went out to eat at Seven Bistro Restaurant.</em>
+      </p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <span class="timeline-date">A quiet moment</span>
+      <h3 class="timeline-memory">When I Couldn't Pretend Anymore</h3>
+      <p class="timeline-text">
+         <em>When I couldn't pretend I liked you. I always got so excited when I was around you.</em>
+      </p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <span class="timeline-date">The Very Beginning</span>
+      <h3 class="timeline-memory">3rd May, 2008</h3>
+      <p class="timeline-text">
+         <em>The day that started it all. THe day you were born.</em>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHOTOS -->
+<div class="section" style="padding-top: 2rem;">
+  <span class="section-label">captured in time</span>
+  <h2 class="section-title">Our Favourite Frames</h2>
+  <div class="divider">✦</div>
+
+  <div class="photos-grid">
+
+    <div class="polaroid" style="--rot: -3deg; transition-delay: 0.1s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <!-- Replace with: <img src="your-photo.jpg" alt="Caption"> -->
+        <img src="image1.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">A day with TN_shotit!!! — your first planned shoot</p>
+    </div>
+
+    <div class="polaroid" style="--rot: 2deg; transition-delay: 0.25s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <img src="image2.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">Your birthday picture with me</p>
+    </div>
+
+    <div class="polaroid" style="--rot: -1.5deg; transition-delay: 0.4s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <img src="image3.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">Our First Date</p>
+    </div>
+
+    <div class="polaroid" style="--rot: 3deg; transition-delay: 0.55s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <img src="image4.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">International Sundayyy!!!</p>
+    </div>
+
+    <div class="polaroid" style="--rot: -2deg; transition-delay: 0.7s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <img src="image5.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">Our First Race!!! — my first time competing in a race</p>
+    </div>
+
+    <div class="polaroid" style="--rot: 1.5deg; transition-delay: 0.85s; position: relative;">
+      <div class="tape tape-top"></div>
+      <div class="polaroid-photo">
+        <img src="image6.jpg" alt="Caption">
+      </div>
+      <p class="polaroid-caption">Our First Celebration together</p>
+    </div>
+
+  </div>
+</div>23
+
+
+<!-- LOVE LETTER -->
+<div class="section">
+  <span class="section-label">from the heart</span>
+  <h2 class="section-title">A Note, Just for You</h2>
+  <div class="divider">✦</div>
+
+  <div class="letter-wrapper">
+    <p class="letter-salutation">My dearest Tilewa,</p>
+    <p class="letter-body"><em>If I asked how are you, you'd probably say "I am fine" or at least "I am just tired". But we can skip that part, cause I am not asking for you to brief it or sugarcoat, I am asking because I love you and I care for you and I want to hear it all — yes I do; even as little as it may seem, as little as it may seem to others, because I am not others. So, I ask you Tilewa, how are you?</em></p>
+    <p class="letter-body">How are you doing — actually doing? What's on your chest, talk to me. How are you feeling? Your mind, your heart, your emotions… how have you been — truly.?</p>
+
+<textarea id="chest-textarea" placeholder="What's on your chest? Type here to release... and watch it fade" rows="3" style="width: 100%; margin: 1rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1rem; border: 1px solid rgba(156,122,60,0.25); background: #fdf8f0; color: var(--sepia-dark); padding: 0.5rem;"></textarea>
+
+<button id="release-btn" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--sepia); color: var(--cream); border: none; font-family: 'Cormorant Garamond', serif; cursor: pointer;">Release</button>
+
+<div id="after-letter" style="display: none; margin-top: 1rem; font-style: italic; opacity: 0; transition: opacity 1s ease-in; font-size: 1.05rem; color: var(--sepia-dark); line-height: 2;">
+      <p style="margin: 0 0 1rem 0;">I'm here for you, always. And I don't want you to carry it alone, I don't want you to go silent about your problems, because I truly care.</p>
+      <p style="margin: 0;">I know it might not yet feel that way that I truly care about what bothers you, but I do care — genuinely — and I know I might not show it the best, but I'm trying, and truly I care. So I don't want you to keep what bothers you to yourself, because I am here for you — Daniel is here.</p>
+    </div>
+
+
+
+
+
+<p class="letter-body">I love you, I love us, and I choose us everyday. And I hope as you go through the moments and photos and memories, you feel how much I love you, how much I care for you, and how much I cherish every moment with you. I love you, Tilewa.</p>
+    <p class="letter-body">Seeing you smile makes my day brighter, and I want you to wake up and feel the love I have for you every single day. I love you, Tilewa. Have the most wonderful day!</p>
+    <p class="letter-sign">— Always yours 🤍</p>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Happy Birthday, Tilewa</p>
+  <p class="footer-hearts">♡ ♡ ♡</p>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.timeline-entry, .polaroid').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Background music
+  const backgroundMusic = document.getElementById('background-music');
+  const musicToggle = document.getElementById('music-toggle');
+
+  function updateMusicButton() {
+    if (!backgroundMusic || !musicToggle) return;
+    musicToggle.textContent = backgroundMusic.paused ? 'Start music' : 'Mute music';
+  }
+
+  const playlist = ['music.mp3', 'music2.mp3'];
+  let currentTrack = 0;
+
+  if (backgroundMusic) {
+    backgroundMusic.volume = 0.45;
+    backgroundMusic.src = playlist[currentTrack];
+    updateMusicButton();
+    backgroundMusic.addEventListener('play', updateMusicButton);
+    backgroundMusic.addEventListener('pause', updateMusicButton);
+    backgroundMusic.addEventListener('ended', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      backgroundMusic.src = playlist[currentTrack];
+      backgroundMusic.play().catch(() => {});
+    });
+
+    const startMusic = () => {
+      backgroundMusic.play().catch(() => {});
+      document.body.removeEventListener('click', startMusic);
+    };
+
+    document.body.addEventListener('click', startMusic, { once: true });
+  }
+
+  if (musicToggle && backgroundMusic) {
+    musicToggle.addEventListener('click', () => {
+      if (backgroundMusic.paused) {
+        backgroundMusic.play().catch(() => {});
+      } else {
+        backgroundMusic.pause();
+      }
+      updateMusicButton();
+    });
+  }
+
+  // Release button functionality
+  document.getElementById('release-btn').addEventListener('click', function() {
+    const textarea = document.getElementById('chest-textarea');
+    if (textarea.value.trim() !== '') {
+      textarea.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+      textarea.style.opacity = '0';
+      textarea.style.transform = 'translateY(-20px)';
+      document.getElementById('release-btn').style.transition = 'opacity 1s ease-out';
+      document.getElementById('release-btn').style.opacity = '0';
+      setTimeout(() => {
+        textarea.style.display = 'none';
+        document.getElementById('release-btn').style.display = 'none';
+        const afterLetter = document.getElementById('after-letter');
+        afterLetter.style.display = 'block';
+        setTimeout(() => {
+          afterLetter.style.opacity = '1';
+        }, 100);
+      }, 1000);
+    }
+  });
+</script>
+
+</body>
+</html>
